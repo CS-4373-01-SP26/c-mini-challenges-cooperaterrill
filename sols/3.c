@@ -4,6 +4,8 @@
 #include <sys/time.h>
 void matVecMult(int *mat, int *vec, int *vecOut, int matRows, int matCols)
 {
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     // assuming vec has dimension (matCols, 1)
     // so output vec will have dimension (matRows, 1)
     for (int i = 0; i < matRows; i++)
@@ -15,6 +17,8 @@ void matVecMult(int *mat, int *vec, int *vecOut, int matRows, int matCols)
         }
         vecOut[i] = sum;
     }
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    printf("\nTook %ld nanoseconds\n", (end.tv_sec - start.tv_sec) * 1000000000L + end.tv_nsec - start.tv_nsec);
 }
 
 int main()
@@ -73,15 +77,11 @@ int main()
         line++;
     }
     int *vecOut = malloc(r * sizeof(int));
-    struct timeval start, end;
-    gettimeofday(&start, NULL);
     matVecMult(mat, vec, vecOut, r, c);
-    gettimeofday(&end, NULL);
     for (int i = 0; i < r; i++)
     {
         printf("%d ", vecOut[i]);
     }
-    printf("\nComputation took %ld microseconds\n", (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec);
     free(mat);
     free(vec);
     return 0;
