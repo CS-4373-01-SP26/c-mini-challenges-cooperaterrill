@@ -2,7 +2,6 @@
 #include <time.h>
 #include <math.h>
 #include <stdio.h>
-#include <sys/time.h>
 #include <unistd.h>
 // PLACE YOUR INCLUDE STATEMENTS HERE
 
@@ -34,6 +33,7 @@ int main(int argc, char **argv)
 
   // ADD YOUR COLUMN MAJOR WORK
   //  YOU'LL NEED TO TIME IT
+  sum = 0;
   start = clock();
   for (j = 0; j < n; j++)   // iterate over rows
     for (i = 0; i < n; i++) // iterate over columns

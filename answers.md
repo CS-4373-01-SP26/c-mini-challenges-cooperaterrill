@@ -18,7 +18,7 @@ I used clock_gettime(CLOCK_MONOTONIC_RAW, &start) to get microsecond-scale preci
 
 Yes -- for large n, the lower bound actually exceeds the true value of pi due to precision issues.
 
-## For Matrix-vector multiplication
+## 3) For Matrix-vector multiplication
 
 ### a. How did you allocate and access your matrix?
 
@@ -36,7 +36,7 @@ No, aside from assuming the number of columns in the matrix matched the number o
 
 Again, clock_gettime() to measure elapsed time at microsecond-level precision, where the same note about timing call location applies.
 
-## For measuring the speed of arithmetic computations
+## 4) For measuring the speed of arithmetic computations
 
 ### a. What was your timing strategy?
 
@@ -46,14 +46,22 @@ I used the same strategy as previously described, but I also measured timing in 
 
 No. While multiplication, division, and sqrt have similar throughputs, the latency of division is about 1.2x that of multiplication, and the latency of sqrt is about 1.5x that of multiplication. Sin is its own beast; its throughput is more than 10x slower than multiplication and its latency is about 3.5x that of multiplication.
 
-## For the row-major/column-major exercise
+## 5) For the row-major/column-major exercise
 
 ### a. What did you observe about differences in program behavior in static vs dynamic allocation of arrays, and how do you explain it?
 
+Static allocation broke down much sooner than dynamic allocation in terms of matrix size--because the stack is much smaller than the heap, it cannot fit large chunks of data simultaneously.
+
 ### b. What did you observe about differences in program behavior in row-major vs. column major computations and how do you explain it?
 
-## For the string transform problem
+In general, column-major computations were a bit slower, but this effect becomes much more apparent at larger scales. Though static allocation crashes much before this, with dynamic allocation and $n=2^13$, the column-major computation takes about 1.5x as much times as the row-major. Also, the final result was occasionally slightly different between the two methods due to having different intermediate roundings/precision loss (because the addition order is different).
+
+## 6) For the string transform problem
 
 ### a. What were some alternative implementation strategies could you entertain here?
 
+I could have created and returned a new string instead of modifying it in place, though this would require more care with memory management to avoid a memory leak. Additionally, given that I only had one transpose function to implement and use, I could have simply hardcoded the tranpose call instead of defining a secondary function whose input signature contains a function pointer.
+
 ### b. What programming hazards/pitfalls should be considered in your general approach?
+
+As previously mentioned, working with function pointers unnecessarily is sure to bring about a bad time. In this case it is certainly a premature abstraction, though it may genuinely be the best design at a larger scale with more complicated string manipulation flows. Also, when dealing with arbitrary strings, it is important to use string-safe methods like strnlen() (as opposed to strlen()) to avoid buffer overflow issues. Finally, as with most C programs, tracking how memory is allocated is critical to avoid use-after-free bugs, memory leaks, etc.

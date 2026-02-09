@@ -2,7 +2,6 @@
 #include <time.h>
 #include <math.h>
 #include <stdio.h>
-#include <sys/time.h>
 #include <unistd.h>
 // PLACE YOUR INCLUDE STATEMENTS HERE
 
@@ -19,10 +18,9 @@ int main(int argc, char **argv)
     for (j = 0; j < n; j++)
       arr[i][j] = (double)rand() / RAND_MAX;
 
-  sum = 0;
-
   // ROW MAJOR WORK
   // YOU'LL NEED TO TIME IT
+  sum = 0;
   start = clock();
   for (i = 0; i < n; i++)   // iterate over rows
     for (j = 0; j < n; j++) // iterate over columns
@@ -35,9 +33,10 @@ int main(int argc, char **argv)
   // ADD YOUR COLUMN MAJOR WORK
   //  YOU'LL NEED TO TIME IT
 
+  sum = 0;
   start = clock();
-  for (j = 0; j < n; j++)   // iterate over rows
-    for (i = 0; i < n; i++) // iterate over columns
+  for (j = 0; j < n; j++)   // iterate over columns
+    for (i = 0; i < n; i++) // iterate over rows
       sum += arr[i][j];
   end = clock();
   printf("Column Major: sum = %lf and Clock Ticks are %ld\n", sum, end - start);
