@@ -54,7 +54,7 @@ Static allocation broke down much sooner than dynamic allocation in terms of mat
 
 ### b. What did you observe about differences in program behavior in row-major vs. column major computations and how do you explain it?
 
-In general, column-major computations were a bit slower, but this effect becomes much more apparent at larger scales. Though static allocation crashes much before this, with dynamic allocation and $n=2^13$, the column-major computation takes about 1.5x as much times as the row-major. Also, the final result was occasionally slightly different between the two methods due to having different intermediate roundings/precision loss (because the addition order is different).
+In general, column-major computations were a bit slower (due to more frequent cache misses), but this effect becomes much more apparent at larger scales. Though static allocation crashes much before this, with dynamic allocation and $n=2^13$, the column-major computation takes about 1.5x as much times as the row-major. Also, the final result was occasionally slightly different between the two methods due to having different intermediate roundings/precision loss (because the addition order is different).
 
 ## 6) For the string transform problem
 
