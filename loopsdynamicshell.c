@@ -8,7 +8,7 @@
 int main(int argc, char **argv)
 {
   int i, j;
-  int n = 1 << 10;
+  int n = 1 << 9;
   double sum;
   clock_t end, start;
   double *arr = malloc(n * n * sizeof(double));
