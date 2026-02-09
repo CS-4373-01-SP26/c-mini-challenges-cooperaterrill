@@ -23,7 +23,7 @@ void matVecMult(int *mat, int *vec, int *vecOut, int matRows, int matCols)
 
 int main()
 {
-    FILE *file = fopen("../mv.txt", "r");
+    FILE *file = fopen("./mv.txt", "r");
     if (!file)
     {
         printf("File not found\n");
@@ -82,6 +82,7 @@ int main()
     {
         printf("%d ", vecOut[i]);
     }
+    printf("\n");
     free(mat);
     free(vec);
     return 0;

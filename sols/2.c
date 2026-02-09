@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#include <sys/time.h>
+#include <time.h>
 #include <unistd.h>
 // from https://en.wikipedia.org/wiki/Approximations_of_pi#Development_of_efficient_formulae
 void approxPi(int max)

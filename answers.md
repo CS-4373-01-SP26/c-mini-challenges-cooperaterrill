@@ -48,6 +48,13 @@ No. While multiplication, division, and sqrt have similar throughputs, the laten
 
 ## 5) For the row-major/column-major exercise
 
+Data in format:
+(n, Row-major static ticks, Column-major static ticks, Row-major dynamic ticks, Column-major dynamic ticks)
+(128, 64, 64, 56, 94)
+(256, 255, 270, 261, 327)
+(512, 1053, 1365, 976, 1295)
+(1024, ~, ~, 4338, 5753)
+
 ### a. What did you observe about differences in program behavior in static vs dynamic allocation of arrays, and how do you explain it?
 
 Static allocation broke down much sooner than dynamic allocation in terms of matrix size--because the stack is much smaller than the heap, it cannot fit large chunks of data simultaneously.
